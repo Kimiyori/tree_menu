@@ -1,0 +1,25 @@
+{% load menu_template_tag %}
+{% load mptt_tags %}
+
+<ul class="tree">
+<b>{{ menu_name }}</b>
+  <li>
+      {% recursetree items %}
+      <li>
+        <details>
+            <summary>
+              <a href="{{ node.url }}">
+                {{ node.url|get_domain }}
+              </a>
+            </summary>
+          {% if not node.os_leaf_node %}
+          <ul>
+            {{children}}
+          </ul>
+          {% endif %}
+        </details>
+      </li>
+      {% endrecursetree %}
+  </li>
+</ul>
+

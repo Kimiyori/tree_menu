@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load static menu_template_tag %}
+
+{% block title %}
+    Menu catalogue
+{% endblock %}
+{% block content %}
+    {% for menu in menus %}
+        {%  draw_menu menu %}
+    {% endfor %}
+{% endblock %}

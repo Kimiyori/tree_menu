@@ -1,0 +1,40 @@
+services:
+  backend:
+    build: .
+    command: python src/manage.py runserver 0.0.0.0:8000
+    working_dir: /app
+    volumes:
+      - .:/app
+    ports:
+      - 8000:8000
+    env_file:
+      - .env
+    depends_on:
+      - db
+    restart: always
+  db:
+    image: postgres:14
+    env_file:
+      - .env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    ports:
+      - 5432:5432
+  lint:
+    build: .
+    command: bash -c "mypy src ; pylint src ; flake8"
+    working_dir: /app
+    profiles: ["test_profile"]
+    volumes:
+      - .:/app
+  test:
+    build: .
+    command: python -m  pytest src
+    working_dir: /app
+    profiles: ["test_profile"]
+    volumes:
+      - .:/app src
+    depends_on:
+      - db
+volumes:
+  postgres_data:
