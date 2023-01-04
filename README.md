@@ -13,6 +13,12 @@ docker-compose up --build
 ```
 App will be available at http://localhost:8000
 
+Admin account will be created with the following data:
+
+User: test_admin
+
+Password: test_admin
+
 # Description solution
 
 The best solution was to use the MPTT library, which allowed the most efficient 
